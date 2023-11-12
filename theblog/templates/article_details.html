@@ -13,6 +13,7 @@
     
     <br>
     <hr>
+    <img src="{{ post.header_image.url }}" alt="", style="width: 300px;">
     {{ post.body | safe }}
     {% if user.is_authenticated and user.id == post.author.id%}
 
