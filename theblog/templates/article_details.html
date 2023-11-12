@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock title %}
+
+{% block content %}
+
+    <h1>{{ post.title }}</h1>
+    <small>By: {{ post.author }} - {{ post.post_date }}</small>
+    <br>
+    | <a href="{% url "category" post.category|slugify %}">{{ post.category }}</a> |
+    
+    <br>
+    <hr>
+    {{ post.body | safe }}
+    {% if user.is_authenticated and user.id == post.author.id%}
+
+        <br><br>
+        <a href="{% url "update_post" post.pk %}" class = "btn btn-secondary">Edit</a>
+        <a href="{% url "delete_post" post.pk %}" class = "btn btn-danger">Delete</a>
+        
+    {% endif %}
+    <br><br>
+    <a name="" id="" class="btn btn-secondary" href="{% url "home" %}" role="button">Back</a>
+    
+    <br><br>
+    <hr>
+    <br>
+    <form action="{% url "like_post" post.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit", name="post_id" value="{{ post.id }}", 
+            
+            class="btn 
+                {% if user in post.likes.all %}
+                    btn-primary 
+                {% else %}
+                    btn-secondary
+                {% endif %} 
+                btn-sm"
+
+            {% if not user.is_authenticated %}
+                disabled
+            {% endif %}
+
+            >Like</button>
+
+        {% if not user.is_authenticated %}
+            <small><a href="{% url "login" %}">Login to like</a></small>
+        {% endif %}
+        - {{ total_likes }} likes
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% if user.is_authenticated %}
+
+{% block title %}
+    Add category
+{% endblock title %}    
+
+{% block content %}
+    
+    <h1>Add category</h1>
+    <br><br>
+    <div class = "form-group">
+
+
+    </div>
+
+        <form method = "POST">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class = "btn btn-secondary">Add</button>
+
+    </form>
+    
+
+{% endblock content %}
+
+{% endif %}

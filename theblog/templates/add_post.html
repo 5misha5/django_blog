@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% if user.is_authenticated %}
+
+{% block title %}
+    Add post
+{% endblock title %}    
+
+{% block content %}
+    
+    <h1>Add post</h1>
+    <br><br>
+    <div class = "form-group">
+
+
+    </div>
+
+        <form method = "POST">
+
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button class = "btn btn-secondary">Post</button>
+
+    </form>
+    
+    <script>
+        var author_name = {{ user.id }};
+        document.getElementById("author").value = author_name
+    </script>
+
+{% endblock content %}
+
+{% endif %}
+
