@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+{% endblock title %}
+
+
+{% block content %}
+
+    <h1>User Profile</h1>
+
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-2">
+          <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title">
+                <a href="{% url "profile_page" page_user.id %}" class="link-dark">
+                    {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+                </a></h5>
+            <p class="small text-body-secondary">
+
+                 {% if page_user.website_url %}
+                    <a href="{{ page_user.website_url }}">Website</a>
+                {% endif %}
+
+                {% if page_user.facebook_url %}
+                    | <a href="{{ page_user.facebook_url }}">Facebook</a> |
+                {% endif %}
+
+                {% if page_user.twitter_url %}
+                    | <a href="{{ page_user.twitter_url }}">Twitter</a>
+                {% endif %}
+
+                {% if page_user.instagram_url %}
+                    | <a href="{{ page_user.instagram_url }}">Instagram</a>
+                {% endif %}
+
+                {% if page_user.pinterest_url %}
+                    | <a href="{{ page_user.pinterest_url }}">Pinterest</a>
+                {% endif %}
+
+            </p>
+            <p class="card-text">{{ page_user.bio }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock content %}
+

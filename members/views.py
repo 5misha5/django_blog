@@ -2,8 +2,8 @@ from typing import Any
 
 from django.contrib.auth.views import PasswordChangeView
 from django.db import models
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import CreateView, UpdateView, DetailView
 from .froms import SignUpForm, EditProfileForm, PasswordChaningForm
 from django.urls import reverse_lazy
 from .models import Profile
@@ -31,6 +31,18 @@ class UserEditView(UpdateView):
         Profile()
         return self.request.user
 
+class ProfilePageView(DetailView):
+    model = Profile
+    template_name = "registration/user_profile.html"
+
+    def get_context_data(self, *args, **kwargs: Any) -> dict[str, Any]:
+        users = Profile.objects.all()
+        context = super(ProfilePageView, self).get_context_data(*args, **kwargs)
+
+        page_user = get_object_or_404(Profile, id=self.kwargs["pk"])
+        context["page_user"] = page_user
+
+        return context
 
 def password_success(request):
     return render(request, "registration/password_success.html")

@@ -64,7 +64,10 @@
         </div>
         <div class="col-md-10">
           <div class="card-body">
-            <h5 class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}</h5>
+            <h5 class="card-title">
+                <a href="{% url "profile_page" post.author.profile.id %}" class="link-dark">
+                    {{ post.author.first_name }} {{ post.author.last_name }}
+                </a></h5>
             <p class="small text-body-secondary">
 
                  {% if post.author.profile.website_url %}

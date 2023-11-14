@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block title %}
+    Update Post
+{% endblock title %}
+
+
 {% if user.is_authenticated and user.id == post.author.id %}
 {% block title %}
     Edit post
