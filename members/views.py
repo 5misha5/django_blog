@@ -31,6 +31,7 @@ class UserEditView(UpdateView):
         Profile()
         return self.request.user
 
+
 class ProfilePageView(DetailView):
     model = Profile
     template_name = "registration/user_profile.html"
@@ -43,6 +44,16 @@ class ProfilePageView(DetailView):
         context["page_user"] = page_user
 
         return context
+
+
+class EditProfilePageView(UpdateView):
+    model = Profile
+    template_name = "registration/edit_profile_page.html"
+
+    fields = ["bio", "profile_pic", "website_url", "facebook_url", "twitter_url", "instagram_url", "pinterest_url"]
+
+    success_url = "home"
+
 
 def password_success(request):
     return render(request, "registration/password_success.html")
