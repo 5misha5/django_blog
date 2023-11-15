@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from datetime import datetime, date
+from django.utils import timezone
 from ckeditor.fields import RichTextField
 
 
@@ -24,7 +25,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    header_image =  models.ImageField(null=True, blank=True, upload_to="images/")
+    header_image = models.ImageField(null=True, blank=True, upload_to="images/")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
@@ -39,3 +40,15 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("article-detail", kwargs={"pk": self.pk})
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
+    #name = models.CharField(max_length=255, default="1234")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.post.title + " - " + str(self.author)
