@@ -59,14 +59,14 @@
             <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
                 {% if user.is_authenticated %}
 
-                    <li class="nav-item dropstart">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
                             <img src="{{ user.profile.profile_pic.url }}" alt="Profile"
                                  class="img-thumbnail rounded-circle"
                                  style="max-width: 40px">
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="{% url "profile_page" user.profile.id %}">Show Profile</a></li>
                             <li><a class="dropdown-item" href="{% url "edit_user" %}">Edit Settings</a></li>
                             <li><a class="dropdown-item" href="{% url "edit_profile_page" user.profile.id %}">Edit Profile</a></li>
