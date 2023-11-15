@@ -117,6 +117,30 @@
 
     {% endif %}
 
+    {% if user.is_authenticated %}
+
+{#        Leave comment#}
+        <div class = "form-group">
+
+        <form method = "POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class = "btn btn-secondary">Post</button>
+
+        </form>
+
+    </div>
+
+    <script>
+        var author_id = {{ user.id }};
+        document.getElementById("author").value = author_id
+
+        var post_id = {{ post.id }};
+        document.getElementById("post").value = post_id
+    </script>
+    {% endif %}
+
 
 
 {% endblock content %}

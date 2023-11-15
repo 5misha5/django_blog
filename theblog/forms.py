@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 
 class PostForm(forms.ModelForm):
@@ -26,5 +26,20 @@ class UpdateForm(forms.ModelForm):
 
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
+            "body": forms.Textarea(attrs={"class": "form-control"}),
+        }
+
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["post", "author", "body"]
+
+        choices = Post.objects.all().values_list("id", "id")
+        choice_list = [i for i in choices]
+
+        widgets = {
+            "post": forms.TextInput(attrs={"class": "form-control", "value": "", "id": "post", "type": "hidden"}),
+            "author": forms.TextInput(attrs={"class": "form-control", "value": "", "id": "author", "type": "hidden"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),
         }
