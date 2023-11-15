@@ -2,24 +2,33 @@
 
 {% block title %}
     Login
-{% endblock title %}    
+{% endblock title %}
 
 {% block content %}
-    
+
     <h1>Login</h1>
     <br><br>
-    <div class = "form-group">
+    <div class="form-group">
 
 
     </div>
 
-        <form method = "POST">
+    <form method="POST">
 
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class = "btn btn-secondary">Login</button>
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Username</label>
+            <input type="text" class="form-control", name="username">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control", name="password">
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Login</button>
 
     </form>
-    
+
 
 {% endblock content %}
